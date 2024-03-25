@@ -4,38 +4,33 @@ import React from "react"
 import "~base.css"
 import "~style.css"
 
-import { Card, CardHeader } from "~components/card"
+import { Card, CardDescription, CardHeader, CardTitle } from "~components/card"
 
 export const getStyle = () => {
-  const style = document.createElement("style")
-  style.textContent = cssText
-  return style
+    const style = document.createElement("style")
+    style.textContent = cssText
+    return style
 }
 
 const SupportCard = () => {
-  return (
-    <button
-      className="flex items-start space-x-4 text-left"
-      onClick={() => {
-        window.open("https://twitter.com/raphaelsalaja")
-        window.open("https://github.com/rafunderscore/twitter-junk-remover")
-      }}>
-      <Card className="transition-all">
-        <CardHeader>
-          <div className="flex justify-between space-x-4">
-            <div className="space-y-1">
-              <h4 className="text-sm font-semibold">twitter-replies-cleaner</h4>
-              <p className="text-sm">
-                Gets rid of unwanted replies on Twitter. Say goodbye to onlyfans
-                links, engagement bait, and more. If you find this useful, give
-                it a star on GitHub!
-              </p>
-            </div>
-          </div>
-        </CardHeader>
-      </Card>
-    </button>
-  )
+    return (
+        <button
+            onClick={() => {
+                window.open("https://twitter.com/raphaelsalaja")
+                window.open("https://github.com/rafunderscore/twitter-replies-cleaner")
+            }}>
+            <Card className="flex items-start space-x-4 text-left transition-all hover:opacity-50">
+                <CardHeader>
+                    <CardDescription className="opacity-30">@raphaelsalaja</CardDescription>
+                    <CardTitle>twitter-replies-cleaner</CardTitle>
+                    <CardDescription className="opacity-30">
+                        Gets rid of unwanted replies on Twitter. Say goodbye to onlyfans links, engagement bait, and more. If you find this useful, give it a
+                        star on GitHub!
+                    </CardDescription>
+                </CardHeader>
+            </Card>
+        </button>
+    )
 }
 
 export default SupportCard
