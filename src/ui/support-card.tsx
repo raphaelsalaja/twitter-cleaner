@@ -11,7 +11,7 @@ export const SupportCard = () => {
 
     const handleClick = () => {
         window.open("https://twitter.com/raphaelsalaja")
-        window.open("https://github.com/rafunderscore/twitter-replies-cleaner")
+        window.open("https://github.com/rafunderscore/twitter-cleaner")
     }
 
     useEffect(() => {
