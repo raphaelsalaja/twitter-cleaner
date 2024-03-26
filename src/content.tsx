@@ -10,7 +10,13 @@ import { waitFor } from "~utilities/wait-for"
 
 export const getStyle = () => {
     const style = document.createElement("style")
+
     style.textContent = cssText
+    // get the css from the page we loaded as well
+    style.textContent += Array.from(document.styleSheets)
+        .filter((sheet) => sheet.href)
+        .map((sheet) => `@import url('${sheet.href}');`)
+        .join("\n")
     return style
 }
 
@@ -35,11 +41,7 @@ export const mountShadowHost: PlasmoMountShadowHost = ({ shadowHost, anchor }) =
         return
     }
 
-    if (!window.location.pathname.includes("/status")) {
-        return
-    }
-
-    anchor?.element.parentElement?.insertBefore(shadowHost, anchor.element.parentElement?.children[3])
+    anchor?.element.parentElement?.insertBefore(shadowHost, anchor.element.parentElement?.children[2])
 }
 
 export type PlasmoCSUIAnchor = {
