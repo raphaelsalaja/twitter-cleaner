@@ -1,7 +1,7 @@
 import * as faceapi from "@vladmandic/face-api"
 import * as nsfwjs from "nsfwjs"
 
-import { hide } from "./anime-animations"
+import { hide_nsfw } from "../utilities/anime-animations"
 
 export const ExplicitFilter = async () => {
     const model = await nsfwjs.load(chrome.runtime.getURL("./models/"))
@@ -43,7 +43,7 @@ export const ExplicitFilter = async () => {
             if (targetDetected) {
                 const article = img.closest("article")
                 if (article) {
-                    hide(article)
+                    hide_nsfw(article)
                 } else {
                     console.warn("Parent article not found for the image:", img)
                 }
@@ -66,9 +66,6 @@ export const ExplicitFilter = async () => {
 
             let nsfw = porn.probability + sexy.probability + hentai.probability
             let sfw = drawing.probability + neutral.probability
-
-            console.log("NSFW:", nsfw)
-            console.log("SFW:", sfw)
 
             return nsfw > sfw
         } catch (error) {

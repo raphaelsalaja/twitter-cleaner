@@ -1,38 +1,29 @@
-import cssText from "data-text:~style.css"
-import type { PlasmoCSConfig, PlasmoGetInlineAnchor, PlasmoMountShadowHost } from "plasmo"
+import cssText from "data-text:~styles/style.css"
+import type { PlasmoGetInlineAnchor, PlasmoMountShadowHost } from "plasmo"
 
-import SupportCard from "~components/support-card"
-
-import "~base.css"
-
-import { ExplicitFilter } from "~utilities/explicit-filter"
+import { Statistics } from "~classes/statistics"
+import { ExplicitFilter } from "~filters/explicit-filter"
+import { JunkFilter } from "~filters/junk-filter"
+import { SupportCard } from "~ui/support-card"
 import { waitFor } from "~utilities/wait-for"
+
+import "~styles/base.css"
+
+export let statistics = new Statistics(0, 0, 0, 0, 0, 0)
 
 export const getStyle = () => {
     const style = document.createElement("style")
-
     style.textContent = cssText
-    // get the css from the page we loaded as well
-    style.textContent += Array.from(document.styleSheets)
-        .filter((sheet) => sheet.href)
-        .map((sheet) => `@import url('${sheet.href}');`)
-        .join("\n")
     return style
 }
 
 export const getShadowHostId = () => "plasmo-inline-example-unique-id"
-
-export const config: PlasmoCSConfig = {
-    all_frames: true,
-    matches: ["https://twitter.com/*"]
-}
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
     await waitFor(() => document.querySelector('[data-testid="tweet"]') && document.querySelector('[aria-label="Footer"]'), {
         count: 10,
         delay: 200
     })
-
     return document.querySelector('[aria-label="Timeline: Trending now"]')?.parentElement || document.body
 }
 
@@ -52,6 +43,26 @@ const PlasmoInline = () => {
     return <SupportCard />
 }
 
+export const getStats = async () => {
+    await new Promise((resolve) => {
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                if (mutation.addedNodes.length) {
+                    const replies = Array.from(document.querySelectorAll('div[aria-label*="replies"]'))
+                    if (replies.length) {
+                        observer.disconnect()
+                        resolve(Statistics.parse(replies[0].getAttribute("aria-label") || ""))
+                        statistics = Statistics.parse(replies[0].getAttribute("aria-label") || "")
+                    }
+                }
+            }
+        })
+        observer.observe(document.body, { childList: true, subtree: true })
+    })
+}
+
 ExplicitFilter()
+JunkFilter()
+getStats()
 
 export default PlasmoInline
