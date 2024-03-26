@@ -10,7 +10,7 @@ export const hide = (element: HTMLElement) => {
             opacity: 0,
             height: 0,
             scale: 0,
-            duration: 250,
+            duration: 200,
             easing: "easeInOutExpo",
             update: function (anim) {
                 element.style.filter = "blur(" + (anim.progress / 100) * 100 + "px)"

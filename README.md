@@ -2,7 +2,6 @@
 
 Simply put twitter-cleaner is a browser extension that allows you to clean up your Twitter feed by getting rid of unwanted replies on Twitter. Say goodbye to onlyfans links, engagement bait, and more.
 
-
 ## Installation
 
 See the releases page at the side for the latest version of the extension. Download the zip file and extract it to a folder. Then, follow the instructions below to load the extension into your browser.

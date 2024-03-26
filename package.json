@@ -1,8 +1,8 @@
 {
-  "name": "twitter-replies-cleaner",
-  "displayName": "Twitter replies cleaner",
-  "version": "0.0.1",
-  "description": "cleans twitter replies",
+  "name": "twitter-cleaner",
+  "displayName": "twitter-cleaner",
+  "version": "0.1.0",
+  "description": "A browser extension that allows you to clean up your Twitter feed by getting rid of unwanted replies on Twitter. Say goodbye to onlyfans links, engagement bait, and more.",
   "author": "Raphael Salaja",
   "scripts": {
     "dev": "plasmo dev",

@@ -1,5 +1,5 @@
-import { accounts } from "~data/accounts"
-import { phrases } from "~data/phrases"
+import { junk_accounts, junk_phrases } from "~data/junk"
+import { nsfw_accounts } from "~data/nsfw"
 
 import { hide, hide_junk } from "../utilities/anime-animations"
 
@@ -70,11 +70,15 @@ export const JunkFilter = async () => {
             }
         }
         // REMOVE TWEETS WITH SPECIFIC PHRASES
-        else if (phrases.some((phrase) => div.innerHTML.includes(phrase))) {
+        else if (junk_phrases.some((phrase) => div.innerHTML.includes(phrase))) {
             hide_junk(div)
         }
-        // REMOVE TWEETS WITH SPECIFIC ACCOUNTS
-        else if (accounts.some((account) => div.innerHTML.includes(account))) {
+        // REMOVE TWEETS WITH SPECIFIC ACCOUNTS | JUNK
+        else if (junk_accounts.some((account) => div.innerHTML.includes(account))) {
+            hide_junk(div)
+        }
+        // REMOVE TWEETS WITH SPECIFIC ACCOUNTS | NSFW
+        else if (nsfw_accounts.some((account) => div.innerHTML.includes(account))) {
             hide_junk(div)
         }
     }
