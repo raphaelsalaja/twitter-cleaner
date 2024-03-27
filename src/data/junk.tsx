@@ -14,7 +14,14 @@ export const junk_accounts = [
     "@Top1Rating",
     "@ghaziabaadwala",
     "@justvanillaling",
-    "@aditiwari9111"
+    "@aditiwari9111",
+    "@Vinod_r108",
+    "@hardy0_9",
+    "@JannieNikky",
+    "@AnkitaBnsl",
+    "@Motabhai012",
+    "@Angle_wix",
+    "@EfsoSahne"
 ]
 
 export const junk_phrases = [
