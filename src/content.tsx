@@ -4,10 +4,11 @@ import type { PlasmoGetInlineAnchor, PlasmoMountShadowHost } from "plasmo"
 import { Statistics } from "~classes/statistics"
 import { ExplicitFilter } from "~filters/explicit-filter"
 import { JunkFilter } from "~filters/junk-filter"
-import { SupportCard } from "~ui/support-card"
 import { waitFor } from "~utilities/wait-for"
 
 import "~styles/base.css"
+
+import YouTubePlayer from "~ui/tik-tok-card"
 
 export let statistics = new Statistics(0, 0, 0, 0, 0, 0)
 
@@ -32,7 +33,7 @@ export const mountShadowHost: PlasmoMountShadowHost = ({ shadowHost, anchor }) =
         return
     }
 
-    anchor?.element.parentElement?.insertBefore(shadowHost, anchor.element.parentElement?.children[2])
+    anchor?.element.parentElement?.insertBefore(shadowHost, anchor.element.parentElement?.children[0])
 }
 
 export type PlasmoCSUIAnchor = {
@@ -40,10 +41,10 @@ export type PlasmoCSUIAnchor = {
 }
 
 const PlasmoInline = () => {
-    return <SupportCard />
+    return <YouTubePlayer />
 }
 
-export const getStats = async () => {
+export const GetStats = async () => {
     await new Promise((resolve) => {
         const observer = new MutationObserver((mutations) => {
             for (const mutation of mutations) {
@@ -61,8 +62,22 @@ export const getStats = async () => {
     })
 }
 
+export const ReplaceTrends = async () => {
+    await new Promise((resolve) => {
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                if (mutation.addedNodes.length) {
+                    document.querySelector('div[aria-label="Timeline: Trending now"]').replaceChildren()
+                }
+            }
+        })
+        observer.observe(document.body, { childList: true, subtree: true })
+    })
+}
+
+ReplaceTrends()
 ExplicitFilter()
 JunkFilter()
-getStats()
+GetStats()
 
 export default PlasmoInline
